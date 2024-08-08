@@ -29,5 +29,5 @@ class Transaction(db.Model):
             "item": self.item,
             "qty": self.quantity,
             "user_id": self.account.id,
-            "date": self.date,
+            "date": datetime.strftime(self.date, "%d/%m/%Y, %H:%M:%S"),
         }
