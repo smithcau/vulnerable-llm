@@ -7,6 +7,7 @@
             <th>#</th>
             <th>Item</th>
             <th>Quantity</th>
+            <th>Date</th>
           </thead>
           <tbody>
             {% if transactions %}
@@ -15,6 +16,7 @@
                 <td>{{t.id}}</td>
                 <td>{{t.item}}</td>
                 <td>{{t.quantity}}</td>
+                <td>{{t.date}}</td>
               </tr>
               {% endfor %}
               {% else %}

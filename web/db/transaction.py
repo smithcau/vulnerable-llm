@@ -1,4 +1,5 @@
 from db.base import db
+from datetime import datetime, timezone
 
 
 # Database ORM for Transactions
@@ -7,6 +8,7 @@ class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     item = db.Column(db.Text)
     quantity = db.Column(db.Integer)
+    date = db.Column(db.DateTime, default=datetime.now(tz=timezone.utc))
     account_id = db.Column(db.Integer, db.ForeignKey("accounts.id"), nullable=False)
     account = db.relationship("Account", backref=db.backref("transactions", lazy=True))
 
@@ -23,4 +25,9 @@ class Transaction(db.Model):
         return [x.to_json() for x in cls.query.all()]
 
     def to_json(self):
-        return {"item": self.item, "qty": self.quantity, "user_id": self.account.id}
+        return {
+            "item": self.item,
+            "qty": self.quantity,
+            "user_id": self.account.id,
+            "date": self.date,
+        }
