@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>VulnLLM - The worlds most secure LLM (tm) </title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+        <!-- jQuery v3.2.1 -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <!-- Bootstrap 4.0.0 JS -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        
+        <style>
+          .jumbotron {
+            text-align: center;
+          }
+          .wrapperDiv{
+            margin-left: 50vh;
+            max-width: 75vh;
+            height: 75%;
+          }
+          .messageTable {
+              table-layout : fixed;
+          }
+        </style>
+    </head>
+    <body style="margin:0px;padding:0px;background-color: #e9ecef;">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+            <a class="navbar-brand" href="{{url_for('base.index')}}">VulnLLM</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                {% if session['username'] %}
+                <a class="nav-item nav-link" href="{{url_for('display.my_account')}}">My Account<span class="sr-only"></span></a>
+                <a class="nav-item nav-link" href="{{url_for('display.chat')}}">Chat<span class="sr-only"></span></a>
+                <a class="nav-item nav-link" href="{{url_for('display.get_transactions')}}">Transactions<span class="sr-only"></span></a>
+                <a class="nav-item nav-link" href="{{url_for('accounts.logout')}}">Logout<span class="sr-only"></span></a>
+                {% else %}
+                <a class="nav-item nav-link" href="{{url_for('accounts.create_account')}}">Create Account<span class="sr-only"></span></a>
+                <a class="nav-item nav-link" href="{{url_for('accounts.login')}}">Login<span class="sr-only"></span></a>
+                {% endif %}
+                
+              </div>
+            </div>
+        </nav>
+        {% block content %}
+        {% endblock %}
+        <script>
+           var pathname = window.location.pathname;
+           var nav = document.querySelector('.navbar-nav');
+            var anchors = nav.getElementsByTagName('a');
+            for (var i = 0; i < anchors.length; i += 1) {
+              var href = anchors[i].getAttribute('href');
+              if (href == pathname) {
+                anchors[i].setAttribute('class', 'nav-item nav-link active');
+                var sr_only = anchors[i].getElementsByTagName('span');
+                sr_only[0].innerHTML = "(Current)";
+              }
+              else{
+                anchors[i].setAttribute('class', 'nav-item nav-link');
+              }
+            }
+        </script>
+      </body>
+</html>

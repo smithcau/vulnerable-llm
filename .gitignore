@@ -1,0 +1,6 @@
+web/.env
+web/migrations
+web/instance
+.venv
+**__pycache__**
+secret/

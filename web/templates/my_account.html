@@ -1,0 +1,39 @@
+﻿{% extends "base.html" %} {% block content %}
+<div class="jumbotron">
+  {% if session['username'] %}
+  <h1>Welcome to the store!</h1>
+  <br />
+  <p>Please purchase some stuff, and try out our new chat bot!</p>
+  <h4>
+    Your Account ID is {{ account.id }}.
+  </h4>
+  <hr />
+  <div class="row" style="justify-content: center;">
+    {% if products %}
+    {% for product in products %}
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{product.name}}</h5>
+          <p class="card-text">{{product.description}}</p>
+          <a href="/buy/{{product.id}}" class="btn btn-primary">Buy</a>
+        </div>
+      </div>
+    {% endfor %}
+    {% else %}
+    <p>No products in store yet!</p>
+    {%endif%}
+  </div>
+  {% else %}
+  <h1>Please log in!</h1>
+  <a href="{{ url_for('accounts.login') }}">Login</a>
+  {% endif %}
+</div>
+<style>
+  @media only screen and (max-width: 576px){
+    body #transactions-table{
+      font-size:3vw; /* 2vw = 2 times view width (dynmaic text size)  */
+    }
+  }
+</style>
+
+{% endblock %}

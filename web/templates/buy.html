@@ -1,0 +1,20 @@
+﻿{% extends "base.html" %} {% block content %}
+<div class="jumbotron">
+  <div class="wrapperDiv">
+    <h1>You're buying {{product.name}}</h1>
+    <form method="POST">
+      {{ form.hidden_tag()}}
+      <div class="form-group">
+        <strong> {{ form.qty.label }} </strong>
+        {{ form.qty(class="form-control") }}
+      </div>
+      {{ form.submit(class="btn btn-success") }}
+    </form>
+  </div>
+</div>
+<script>
+  document.onload = function () {
+    submit.disabled = true;
+  };
+</script>
+{% endblock %}

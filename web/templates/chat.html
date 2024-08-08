@@ -1,0 +1,69 @@
+﻿{% extends "base.html" %} 
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card">
+      <div class="card-header">
+          <h5 class="card-title">Chat with Bot</h5>
+      </div>
+      <div class="card-body" id="chat-window" style="height: 400px; overflow-y: auto;">
+          <!-- Chat messages will appear here -->
+      </div>
+      <div class="card-footer">
+          <div class="input-group mb-2">
+              <input type="text" id="user-input" class="form-control" placeholder="Type your message...">
+              <div class="input-group-append">
+                  <button class="btn btn-primary" id="send-btn">Send</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+      $('#send-btn').on('click', function(event) {
+          event.preventDefault();  // Prevent the default form submission
+          var userInput = $('#user-input').val();
+          if (userInput.trim() === '') return;
+
+          addMessage('You', userInput);
+          $('#user-input').val('');
+
+          // Show typing indicator
+          addTypingIndicator();
+
+          // Send the user's message to the Flask API
+          $.ajax({
+              url: '/api/chat',
+              method: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify({prompt: userInput}),
+              success: function(response) {
+                  removeTypingIndicator();
+                  addMessage('Bot', response.reply);
+              },
+              error: function() {
+                  removeTypingIndicator();
+                  addMessage('Bot', 'Sorry, there was an error processing your request.');
+              }
+          });
+      });
+
+      function addMessage(sender, message) {
+          var chatWindow = $('#chat-window');
+          chatWindow.append('<div><strong>' + sender + ':</strong> ' + message + '</div>');
+          chatWindow.scrollTop(chatWindow.prop('scrollHeight'));
+      }
+
+      function addTypingIndicator() {
+          var chatWindow = $('#chat-window');
+          chatWindow.append('<div id="typing-indicator"><em>Bot is typing...</em></div>');
+          chatWindow.scrollTop(chatWindow.prop('scrollHeight'));
+      }
+
+      function removeTypingIndicator() {
+          $('#typing-indicator').remove();
+      }
+  });
+</script>
+{% endblock %}

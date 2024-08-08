@@ -1,0 +1,29 @@
+﻿{% extends "base.html" %} {% block content %}
+    <div class="jumbotron">
+      <div class="wrapperDiv">
+        <h1>Your Transactions</h1>
+        <table class="table">
+          <thead>
+            <th>#</th>
+            <th>Item</th>
+            <th>Quantity</th>
+          </thead>
+          <tbody>
+            {% if transactions %}
+              {% for t in transactions %}
+              <tr>
+                <td>{{t.id}}</td>
+                <td>{{t.item}}</td>
+                <td>{{t.quantity}}</td>
+              </tr>
+              {% endfor %}
+              {% else %}
+              <tr>
+                <td>No transactions</td>
+              </tr>
+              {%endif%}
+          </tbody>
+        </table>
+      </div>
+    </div>
+{% endblock %}
