@@ -1,29 +1,28 @@
 ﻿{% extends "base.html" %} {% block content %}
 <div class="jumbotron">
-  <div class="wrapperDiv">
-    <h1>Create an account today</h1>
-    <form method="POST">
-      {{ form.hidden_tag()}}
-      <div class="form-group">
-        <strong> {{ form.name.label }} </strong>
-        {{ form.name(class="form-control") }}
-        <small style="color: red;">{{error}}</small>
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Create an account today</h5>
       </div>
-      <div class="form-group">
-        <strong> {{ form.password.label }} </strong>
-        {{ form.password(class="form-control") }}
-      </div>
-      <div class="form-group">
-        <strong> {{ form.pwd_confirm.label }} </strong>
-        {{ form.pwd_confirm(class="form-control") }}
-      </div>
-      {{ form.submit(class="btn btn-success") }}
-    </form>
+      <form method="POST">
+        {{ form.hidden_tag()}}
+        <div class="form-group">
+          <strong> {{ form.name.label }} </strong>
+          {{ form.name(class="form-control") }}
+          <small style="color: red;">{{error}}</small>
+        </div>
+        <div class="form-group">
+          <strong> {{ form.password.label }} </strong>
+          {{ form.password(class="form-control") }}
+        </div>
+        <div class="form-group">
+          <strong> {{ form.pwd_confirm.label }} </strong>
+          {{ form.pwd_confirm(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-success") }}
+      </form>
+    </div>
   </div>
 </div>
-<script>
-  document.onload = function () {
-    submit.disabled = true;
-  };
-</script>
 {% endblock %}
