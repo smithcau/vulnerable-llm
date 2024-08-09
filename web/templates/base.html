@@ -37,7 +37,7 @@
                 <a class="nav-item nav-link" href="{{url_for('display.my_account')}}">My Account<span class="sr-only"></span></a>
                 <a class="nav-item nav-link" href="{{url_for('display.chat')}}">Chat<span class="sr-only"></span></a>
                 <a class="nav-item nav-link" href="{{url_for('display.get_transactions')}}">Transactions<span class="sr-only"></span></a>
-                <a class="nav-item nav-link" href="{{url_for('accounts.logout')}}">Logout<span class="sr-only"></span></a>
+                <a class="nav-item nav-link" href="{{url_for('accounts.logout')}}">Logout ({{session['username']}})<span class="sr-only"></span></a>
                 {% else %}
                 <a class="nav-item nav-link" href="{{url_for('accounts.create_account')}}">Create Account<span class="sr-only"></span></a>
                 <a class="nav-item nav-link" href="{{url_for('accounts.login')}}">Login<span class="sr-only"></span></a>
