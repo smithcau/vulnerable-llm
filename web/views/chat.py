@@ -39,6 +39,7 @@ def get_model():
     memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
     return LLMChain(llm=llm, prompt=prompt, verbose=False, memory=memory)
 
+model = get_model()
 
 def generate_prompt(user, prompt):
     return json.dumps(
@@ -56,9 +57,9 @@ def generate_prompt(user, prompt):
 
 @app.route("/api/chat", methods=["POST"])
 def chat_json():
+    global model
     if prompt := request.get_json().get("prompt"):
         if account := Account.query.filter_by(name=session.get("username")).first():
-            model = get_model()
             response = model({"question": generate_prompt(account, prompt)})
             return jsonify({"reply": response.get("text")})
         return jsonify({"reply": "You must be logged in"})
